@@ -10,44 +10,44 @@ workHours = {
   "4 PM": "",
   "5 PM": "",
 };
-var textDivArray = $('.textDiv');
+//current hour
+var cHour = moment().format('HH');
+var currentTimeInt = parseInt(cHour);
 
-var backgroundColor = moment().format('h a');
-var cHour = moment().format('h a');
-for(var i = 1; i <10; i++) {
-  var timeId = '#time'+i
-  if($(timeId).val()===cHour){
-    $(timeId).attr('class', 'col-md-1 present')
+
+var timeEachHour = moment()
+var textDivArray = $('.hourRow');
+
+//changing background color
+$('.hourRow').each(function() {
+  var timeId = parseInt($(this).attr('id').split('y')[1])
+  
+  if(timeId === cHour)
+  {
+    $(this).addClass('present')
   }
-  else if (($(timeId).val()<cHour))
-  var todo = cHour[i];
-}
-
-init()
-function init(){
-  var currentHour = JSON.parse(localStorage.getItem("current-hour"))
-
-  if (currentHour !== null) {
-    todos = currentHour;
+  else if (timeId < cHour){
+    $(this).addClass('past')
   }
-}
+else if (cHour < timeId){
+  $(this).addClass('future')
 
-renderTodos();
-function storeTime(){
-  localStorage.getItem("current")
 }
-$('#save').on('click', function() {
+}) 
+ for (i = 8; i < 18; i++){
+   var data = localStorage.getItem(i)
+ 
+   var textDiv = '#text-entry' + i
+   console.log(textDiv)
+   $(textDiv).text(data)
+ }
+
+
+//click function 
+$('button').on('click', function() {
+  var value = $(this).siblings('textArea').val();
+ var hourClick = $(this).siblings('div').attr('id').split('e')[1]
+  localStorage.setItem(hourClick, value)
+
 });
 
-function renderTodos(){
-  for(var i = 0; i < currentHour.length; i++) {
-    var todo = currentHour[i];
-  
-    var li = document.createElement("li");
-    li.textContent = todo;
-    li.setAttribute("data-hour", i);
-  
-    var button = document.createElement("button");
-    button.textContent = "Save-Here";
-   }
-  }
